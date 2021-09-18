@@ -29,14 +29,19 @@ export default function App() {
   const searchFilter = (val) => {
     setinputValue(val);
     const filteredData = tableData.filter((dat) => {
-      return dat.name.toLowerCase().includes(val.toLowerCase());
+      return (
+        dat.name.toLowerCase().includes(val.toLowerCase()) ||
+        dat.email.toLowerCase().includes(val.toLowerCase()) ||
+        dat.role.toLowerCase().includes(val.toLowerCase())
+      );
     });
     setfilteredData(filteredData);
   };
 
   const onDeleteItem = (id) => {
+    const ids = [...id];
     const filteredData = tableData.filter((dat) => {
-      return dat.id !== id;
+      return !ids.includes(dat.id);
     });
     settableData(filteredData);
     setfilteredData(filteredData);

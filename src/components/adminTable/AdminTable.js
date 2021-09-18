@@ -1,13 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import "./AdminTable.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 function AdminTable({ data, onDeleteItem, editMode, editItem, onToggleEdit }) {
+  const [selectedCheckboxes, setselectedCheckboxes] = useState([]);
+
+  const onChange = (id) => {
+    let selected = [...selectedCheckboxes];
+    let checkboxFound = selectedCheckboxes.indexOf(id);
+    if (id === "0") {
+      if (checkboxFound > -1) {
+        selected.splice(0, selected.length);
+      } else {
+        const ids = data.map((dat) => {
+          return `${dat.id}`;
+        });
+        selected.push("0", ...ids);
+      }
+    } else {
+      if (checkboxFound > -1) {
+        selected.splice(checkboxFound, 1);
+      } else {
+        selected.push(id);
+      }
+    }
+    setselectedCheckboxes(selected);
+  };
+
   const tableHeader = (
     <section className="gridWrapper">
       <div className="grid">
-        <input name={"Select all"} value={"Select all"} type="checkbox" />
+        <input
+          name={"Select all"}
+          value={"Select all"}
+          type="checkbox"
+          onChange={() => onChange("0")}
+          checked={selectedCheckboxes.includes("0")}
+        />
       </div>
       <div className="grid">Name</div>
       <div className="grid">Email</div>
@@ -17,10 +47,23 @@ function AdminTable({ data, onDeleteItem, editMode, editItem, onToggleEdit }) {
   );
 
   const tableData = data.map((dat) => {
+    const isSelected = selectedCheckboxes.includes(dat.id);
     return (
-      <section className="gridWrapper" key={dat.id}>
+      <section
+        className="gridWrapper"
+        key={dat.id}
+        style={{
+          backgroundColor: isSelected ? "#dfd7d733" : "white",
+        }}
+      >
         <div className="childGrid">
-          <input name={dat.id} value={dat.id} type="checkbox" />
+          <input
+            onChange={() => onChange(dat.id)}
+            checked={isSelected}
+            name={dat.id}
+            value={dat.id}
+            type="checkbox"
+          />
         </div>
         <div className="childGrid">
           {editMode === dat.id ? (
@@ -87,10 +130,22 @@ function AdminTable({ data, onDeleteItem, editMode, editItem, onToggleEdit }) {
       </section>
     );
   });
+
+  const tableFooter = (
+    <button
+      onClick={() => {
+        setselectedCheckboxes([]);
+        onDeleteItem(selectedCheckboxes);
+      }}
+    >
+      Delete selected
+    </button>
+  );
   return (
     <React.Fragment>
       {tableHeader}
       {tableData}
+      {tableFooter}
     </React.Fragment>
   );
 }
