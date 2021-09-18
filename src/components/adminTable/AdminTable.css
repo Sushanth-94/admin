@@ -1,0 +1,35 @@
+.gridWrapper {
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+  grid-gap: 10px;
+  background-color: #fff;
+  color: #444;
+  border-bottom: 1px solid rgb(0, 0, 0, 0.2);
+  padding: 10px 0;
+}
+
+.grid {
+  color: black;
+  font-weight: bold;
+}
+
+.childGrid {
+  color: black;
+  word-break: break-all;
+}
+
+.delIcon {
+  color: red;
+  cursor: pointer;
+}
+
+.editIcon {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.checkIcon {
+  color: green;
+  margin-right: 10px;
+  cursor: pointer;
+}

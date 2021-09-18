@@ -1,0 +1,10 @@
+.headerContainer {
+  width: 100%;
+  margin: 6px 0;
+}
+
+.inputContainer {
+  width: 100%;
+  padding: 6px;
+  box-sizing: border-box;
+}
