@@ -33,3 +33,13 @@
   margin-right: 10px;
   cursor: pointer;
 }
+
+.deleteSelectedBtn {
+  position: absolute;
+  bottom: 0;
+  color: white;
+  background: red;
+  border: none;
+  padding: 10px;
+  border-radius: 7px;
+}

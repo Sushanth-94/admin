@@ -133,6 +133,7 @@ function AdminTable({ data, onDeleteItem, editMode, editItem, onToggleEdit }) {
 
   const tableFooter = (
     <button
+      className="deleteSelectedBtn"
       onClick={() => {
         setselectedCheckboxes([]);
         onDeleteItem(selectedCheckboxes);
